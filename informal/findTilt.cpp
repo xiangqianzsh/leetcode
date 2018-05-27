@@ -24,7 +24,7 @@ public:
 };
 
 
-
+# 再一次, 计算量较大
 class Solution {
 public:
     int findTilt(TreeNode* root) {
@@ -64,7 +64,7 @@ public:
 
 
 
-
+# 深度优先
 struct NodeRet {
     int tree_sum;
     int tilt;
