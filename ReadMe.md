@@ -44,3 +44,48 @@ public:
     }
 };
 ```
+
+
+# 这里考虑了顺序, 其它的好像并没有这样https://leetcode.com/problems/remove-outermost-parentheses/submissions/
+```cpp
+// 别人的更简单, 好像没有考虑顺序的问题.
+// https://leetcode.com/problems/remove-outermost-parentheses/discuss/331159/Javascript-Solution-using-stacks-90
+// https://leetcode.com/problems/remove-outermost-parentheses/discuss/330496/Rust-solution-0ms-beats-100
+
+
+class Node {
+public:
+    char ch;
+    int idx;
+    Node(char ch_, int idx_): ch(ch_), idx(idx_) {}
+};
+
+class Solution {
+public:
+    string removeOuterParentheses(string S) {
+        std::vector<int> rets_idx;
+        stack<Node> mystack;
+        for (int i = 0; i < S.size(); ++i) {
+            char ch = S[i];
+            if (ch == ')' && mystack.top().ch == '(') {
+                rets_idx.push_back(i);
+                rets_idx.push_back(mystack.top().idx);
+                mystack.pop();
+                if (mystack.empty()) {
+                    rets_idx.resize(rets_idx.size() - 2);
+                }
+            } else {
+                mystack.push(Node(ch, i));
+            }
+        }
+    
+        sort(rets_idx.begin(), rets_idx.end());
+        string ret;
+        for (int idx : rets_idx) {
+            ret += S[idx];
+        }
+        return ret;
+    }
+};
+```
+
